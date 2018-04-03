@@ -6,17 +6,17 @@ import seaborn as sb
 import pandas as pd
 
 
-def violins(df, variable, saveprefix)
+def violins(df, variable, saveprefix):
     # filt = df.query('frag<870 & frag>120 & mrbq > 20 & vbq > 20 & mapq > 40')
     filt = df
     ax = pyplot.subplots(figsize=(19, 10))
     sb.violinplot(x="read_source", y=variable, hue="biotype", data=filt, palette="muted")
     pyplot.title("Fragment size (Controls interesected with all tumor VCFs)")
     return ax
-    pyplot.savefig(target)
+    pyplot.savefig(saveprefix)
 
 
-def biotype_hists(df, variable, saveprefix)
+def biotype_hists(df, variable, saveprefix):
     # filt = df.query('frag<870 & frag>120 & mrbq > 20 & vbq > 20 & mapq > 40')
     filt = df
     ax = pyplot.subplots(figsize=(19, 10))
@@ -27,10 +27,17 @@ def biotype_hists(df, variable, saveprefix)
 
 
 def trinuc_boxes(df, saveprefix, biotype="control"):
+    from glider.utils.trinucs import build_trinuc_lookup, trinuc_order, trinuc_colors
+    import numpy as np
     sb.set_style("white")
     sb.despine()
 
+    index2trinuc, trinuc2index = build_trinuc_lookup()
+
     # filtered set, into trinuc only
+    trinuc_cols = [index2trinuc[index] for index in range(96)] + ["read_source", "mutation_source", "mutation_callset",
+                                                                  "biotype"]
+
     trinuc_df = df[trinuc_cols]
     trinuc_df["read_source"]
 
