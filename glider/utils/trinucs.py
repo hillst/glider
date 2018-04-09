@@ -42,7 +42,7 @@ def invert_phred(qscore):
     return p
 
 
-def vectorize_row(mrbq, vbq, mapq, pir, frag, trinuc_index, normalize=False, reads="", mutations="", callset="",
+def vectorize_row(mrbq, vbq, mapq, pir, frag, trinuc_index, ref, alt, normalize=False, reads="", mutations="", callset="",
                   biotype=""):
     '''
     Vectorizes the combination of QC sample statistics and creates a categorical vector for the trinucleotides.
@@ -60,12 +60,18 @@ def vectorize_row(mrbq, vbq, mapq, pir, frag, trinuc_index, normalize=False, rea
     :param biotype:
     :return:
     '''
+
+    alt_vec = [1 if b.upper() == alt else 0 for b in "ACGT" ]
+    ref_vec = [1 if b.upper() == ref else 0 for b in "ACGT" ]
+
+
+
     if normalize:
         return [invert_phred(mrbq), invert_phred(vbq), float(mapq) / 60., abs(75 - int(pir)) / 151.,
-                abs(float(frag)) / 300.] + [1 if i == int(trinuc_index) else 0 for i in range(96)] + [reads, mutations,
+                abs(float(frag)) / 300.] + ref_vec + alt_vec + [1 if i == int(trinuc_index) else 0 for i in range(96)] + [reads, mutations,
                                                                                                       callset, biotype]
     else:
-        return [float(mrbq), float(vbq), float(mapq), float(pir), abs(float(frag))] + [
+        return [float(mrbq), float(vbq), float(mapq), float(pir), abs(float(frag))] + ref_vec + alt_vec +[
             1 if i == int(trinuc_index) else 0 for i in range(96)] + [reads, mutations, callset, biotype]
 
 
