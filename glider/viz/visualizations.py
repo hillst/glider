@@ -14,13 +14,11 @@ def violins(df, variable, saveprefix):
 
 def biotype_hists(df, variable, hue="biotype"):
     import matplotlib as mpl
-    mpl.use('agg')
     from matplotlib import pyplot
     import seaborn as sb
-    # filt = df.query('frag<870 & frag>120 & mrbq > 20 & vbq > 20 & mapq > 40')
-    ax = pyplot.subplots(figsize=(19, 10))
-    sb.violinplot(x="read_source", y=variable, hue=hue, data=df, palette="muted")
-    pyplot.title("Fragment size (Controls interesected with all tumor VCFs)")
+    fig, ax = pyplot.subplots(figsize=(15, 10))
+    for cat in df[hue].unique():
+        sb.distplot(df[df[hue] == cat][variable], hist=True, label="{} == {}".format(hue, cat))
     return ax
 
 
