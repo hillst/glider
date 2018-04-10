@@ -1,3 +1,10 @@
+import matplotlib as mpl
+from matplotlib import pyplot
+import seaborn as sb
+from glider.utils.trinucs import build_trinuc_lookup, trinuc_order, trinuc_colors
+import numpy as np
+import pandas as pd
+
 def violins(df, variable, saveprefix):
     import matplotlib as mpl
     mpl.use('agg')
@@ -118,3 +125,32 @@ def trinuc_boxes(df, saveprefix, biotype="control"):
     pyplot.ylim(0, 0.15)
     # pyplot.savefig(saveprefix)
     return ax
+
+def qc_visualization_routine(filt, variable='vbq'):
+    """
+    Plots the histograms by biotype and accompanies them with a violin plot.
+    Assumes we are using matplotlib inline or something similar as it does not return any axes.
+
+
+    :param filt:
+    :return:
+    """
+
+
+    ax = biotype_hists(filt, variable=variable, hue="biotype", bins=range(0, 41))
+    pyplot.title("{} ".format(variable))
+    pyplot.legend()
+    sb.despine()
+
+    ax = biotype_hists(filt[filt["biotype"] == "luad"], variable=variable, hue="batch", bins=range(0, 41))
+    pyplot.title("{} organized by batch, luad only.".format(variable))
+    pyplot.legend()
+    sb.despine()
+
+    ax = biotype_hists(filt[filt["biotype"] == "control"], variable=variable, hue="batch", bins=range(0, 41))
+    pyplot.title("{} organized by batch, control only.".format(variable))
+    pyplot.legend()
+    sb.despine()
+
+    ax = violins(filt, variable=variable, saveprefix="source_violin.vbq.png")
+    sb.despine()
