@@ -12,13 +12,13 @@ def violins(df, variable, saveprefix):
     pyplot.savefig(saveprefix)
 
 
-def biotype_hists(df, variable, hue="biotype"):
+def biotype_hists(df, variable, hue="biotype", bins=None):
     import matplotlib as mpl
     from matplotlib import pyplot
     import seaborn as sb
     fig, ax = pyplot.subplots(figsize=(15, 10))
     for cat in df[hue].unique():
-        sb.distplot(df[df[hue] == cat][variable], hist=True, label="{} == {}".format(hue, cat))
+        sb.distplot(df[df[hue] == cat][variable], hist=True, bins=bins, label="{} == {}".format(hue, cat))
     return ax
 
 
