@@ -7,7 +7,6 @@ import pandas as pd
 
 def violins(df, variable, saveprefix):
     import matplotlib as mpl
-    mpl.use('agg')
     from matplotlib import pyplot
     import seaborn as sb
 
@@ -16,7 +15,6 @@ def violins(df, variable, saveprefix):
     sb.violinplot(x="read_source", y=variable, hue="biotype", data=df, palette="muted")
     pyplot.title("Fragment size (Controls interesected with all tumor VCFs)")
     return ax
-    pyplot.savefig(saveprefix)
 
 
 def biotype_hists(df, variable, hue="biotype", bins=None):
@@ -31,7 +29,6 @@ def biotype_hists(df, variable, hue="biotype", bins=None):
 
 def trinuc_odds(df,):
     import matplotlib as mpl
-    mpl.use('agg')
     from matplotlib import pyplot
     import seaborn as sb
     from glider.utils.trinucs import build_trinuc_lookup, trinuc_order, trinuc_colors
@@ -79,7 +76,6 @@ def trinuc_odds(df,):
 
 def trinuc_boxes(df, saveprefix, biotype="control"):
     import matplotlib as mpl
-    mpl.use('agg')
     from matplotlib import pyplot
     import seaborn as sb
     from glider.utils.trinucs import build_trinuc_lookup, trinuc_order, trinuc_colors
@@ -123,7 +119,6 @@ def trinuc_boxes(df, saveprefix, biotype="control"):
         patch.set_facecolor(color)
 
     pyplot.ylim(0, 0.15)
-    # pyplot.savefig(saveprefix)
     return ax
 
 def qc_visualization_routine(filt, variable='vbq'):
