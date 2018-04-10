@@ -35,7 +35,7 @@ def as_dataframe(data):
     alts = ["alt_{}".format(b) for b in "ACGT"]
     df = pd.DataFrame(data,
                       columns=["mrbq", "vbq", "mapq", "pir", "frag"]  + refs + alts + [index2trinuc[index] for index in range(96)] + [
-                          "read_source", "mutation_source", "mutation_callset", "biotype"])
+                          "read_source", "mutation_source", "mutation_callset", "biotype", "batch"])
     return df
 
 

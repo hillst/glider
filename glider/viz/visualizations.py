@@ -12,17 +12,16 @@ def violins(df, variable, saveprefix):
     pyplot.savefig(saveprefix)
 
 
-def biotype_hists(df, variable, saveprefix):
+def biotype_hists(df, variable, hue="biotype"):
     import matplotlib as mpl
     mpl.use('agg')
     from matplotlib import pyplot
     import seaborn as sb
     # filt = df.query('frag<870 & frag>120 & mrbq > 20 & vbq > 20 & mapq > 40')
     ax = pyplot.subplots(figsize=(19, 10))
-    sb.violinplot(x="read_source", y=variable, hue="biotype", data=df, palette="muted")
+    sb.violinplot(x="read_source", y=variable, hue=hue, data=df, palette="muted")
     pyplot.title("Fragment size (Controls interesected with all tumor VCFs)")
     return ax
-    pyplot.savefig(target)
 
 
 def trinuc_odds(df,):
