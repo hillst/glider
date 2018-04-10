@@ -15,7 +15,7 @@ def load_data(filename, MAX=-1, biotype="luad", batch=None):
         line_arr = line.strip().split("\t")
         chrm, pos, ref, alt, read_id, mrbq, vbq, mapq, pir, frag, trinuc, trinuc_index = line_arr
         data.append(vectorize_row(mrbq, vbq, mapq, pir, frag, trinuc_index, ref, alt, normalize=False, reads=read_source,
-                                  mutations=mutation_sample, callset=mutation_callset, biotype=biotype))
+                                  mutations=mutation_sample, callset=mutation_callset, biotype=biotype, batch=batch))
 
     return data
 
