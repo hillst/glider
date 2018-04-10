@@ -121,7 +121,7 @@ def trinuc_boxes(df, saveprefix, biotype="control"):
     pyplot.ylim(0, 0.15)
     return ax
 
-def qc_visualization_routine(filt, variable='vbq'):
+def qc_visualization_routine(filt, variable='vbq', bins=None):
     """
     Plots the histograms by biotype and accompanies them with a violin plot.
     Assumes we are using matplotlib inline or something similar as it does not return any axes.
@@ -132,17 +132,17 @@ def qc_visualization_routine(filt, variable='vbq'):
     """
 
 
-    ax = biotype_hists(filt, variable=variable, hue="biotype", bins=range(0, 41))
+    ax = biotype_hists(filt, variable=variable, hue="biotype", bins=bins)
     pyplot.title("{} ".format(variable))
     pyplot.legend()
     sb.despine()
 
-    ax = biotype_hists(filt[filt["biotype"] == "luad"], variable=variable, hue="batch", bins=range(0, 41))
+    ax = biotype_hists(filt[filt["biotype"] == "luad"], variable=variable, hue="batch", bins=bins)
     pyplot.title("{} organized by batch, luad only.".format(variable))
     pyplot.legend()
     sb.despine()
 
-    ax = biotype_hists(filt[filt["biotype"] == "control"], variable=variable, hue="batch", bins=range(0, 41))
+    ax = biotype_hists(filt[filt["biotype"] == "control"], variable=variable, hue="batch", bins=bins)
     pyplot.title("{} organized by batch, control only.".format(variable))
     pyplot.legend()
     sb.despine()
