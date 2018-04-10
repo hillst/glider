@@ -19,6 +19,7 @@ def load_data(filename, MAX=-1, biotype="luad", batch=None):
 
     return data
 
+
 def as_dataframe(data):
     '''
     Returns passed data constructed in a pandas dataframe with prper headers :)
@@ -29,11 +30,11 @@ def as_dataframe(data):
     import pandas as pd
     from glider.utils.trinucs import build_trinuc_lookup
 
-    index2trinuc, _ = build_trinuc_lookup()
+    _, index2trinuc= build_trinuc_lookup()
     refs = ["ref_{}".format(b) for b in "ACGT"]
     alts = ["alt_{}".format(b) for b in "ACGT"]
     df = pd.DataFrame(data,
-                      columns=["mrbq", "vbq", "mapq", "pir", "frag"] + refs + alts + [index2trinuc[index] for index in range(96)] + [
+                      columns=["mrbq", "vbq", "mapq", "pir", "frag"]  + refs + alts + [index2trinuc[index] for index in range(96)] + [
                           "read_source", "mutation_source", "mutation_callset", "biotype"])
     return df
 

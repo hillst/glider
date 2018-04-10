@@ -46,4 +46,11 @@ def load_all_data(datatype="union"):
     return data
 
 
-print("hello werld")
+def load_test():
+    from glider.data.annotations import load_data, as_dataframe
+    data = load_data("test_data/Pre-BB1104--BB1104.union.tsv")
+    print len(data)
+    print as_dataframe(data).describe()
+
+
+print len(load_test())

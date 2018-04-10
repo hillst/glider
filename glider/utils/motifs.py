@@ -13,7 +13,7 @@ def error_correction(info, epsilon=0.001):
     :param epsilon:
     :return:
     """
-    return 2 - (info + epsilon)
+    return 2 - (info )
 
 def get_scores(motif):
     info = calc_information(motif)

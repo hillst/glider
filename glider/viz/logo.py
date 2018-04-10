@@ -31,6 +31,7 @@ class Scale(matplotlib.patheffects.RendererBase):
         affine = affine.identity().scale(self._sx, self._sy)+affine
         renderer.draw_path(gc, tpath, affine, rgbFace)
 
+
 def letterAt(letter, x, y, yscale=1, ax=None):
     text = LETTERS[letter]
     t = transforms.Affine2D().scale(1*GLOBSCALE, yscale*GLOBSCALE) + \
@@ -41,12 +42,11 @@ def letterAt(letter, x, y, yscale=1, ax=None):
     return p
 
 
-
 def plot_logo(base_frequencies, ax=None):
     """
     base_frequencies = 
     """
-    from utils.motifs  import get_scores
+    from glider.utils.motifs  import get_scores
     scores = get_scores(base_frequencies)
 
     if ax == None:

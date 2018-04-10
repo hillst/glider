@@ -80,12 +80,12 @@ def trinuc_boxes(df, saveprefix, biotype="control"):
     import seaborn as sb
     from glider.utils.trinucs import build_trinuc_lookup, trinuc_order, trinuc_colors
     import numpy as np
-
+    import pandas as pd
 
     #styling
     sb.set_style("white")
     sb.despine()
-    index2trinuc, trinuc2index = build_trinuc_lookup()
+    trinuc2index, index2trinuc = build_trinuc_lookup()
 
     # filtered set, into trinuc only
     trinuc_cols = [index2trinuc[index] for index in range(96)] + ["read_source", "mutation_source", "mutation_callset",
